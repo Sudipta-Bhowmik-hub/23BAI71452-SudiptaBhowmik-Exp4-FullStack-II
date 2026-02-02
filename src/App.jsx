@@ -3,7 +3,7 @@ import { Routes, Route, Link } from 'react-router-dom';
 import DifficultySelector from './components/DifficultySelector.jsx';
 import Board from './components/Board.jsx';
 import WinnerScorecard from './components/WinnerScorecard.jsx';
-import './app.css';
+import './App.css';
 
 function App() {
   const [difficulty, setDifficulty] = useState('easy');
