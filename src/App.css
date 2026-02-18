@@ -14,17 +14,28 @@ body {
   align-items: center;
 }
 
-/* Semi-transparent container for readability */
-.app-container {
+/* Light theme container */
+.app-container.light {
   background-color: rgba(216, 89, 89, 0.85);
   border-radius: 12px;
   padding: 30px;
   max-width: 700px;
   width: 100%;
   box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-
-  /* Center text inside */
   text-align: center;
+  color: #222;
+}
+
+/* Dark theme container */
+.app-container.dark {
+  background-color: rgba(34, 34, 34, 0.9);
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 700px;
+  width: 100%;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  text-align: center;
+  color: #f5f5f5;
 }
 
 /* Title styling */
@@ -32,7 +43,6 @@ body {
   font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 20px;
-  color: #222;
 }
 
 /* Difficulty dropdown */
@@ -77,7 +87,6 @@ body {
   margin-top: 15px;
   font-size: 1.4rem;
   font-weight: 600;
-  color: #111;
 }
 
 /* Reset button spacing */
@@ -100,5 +109,24 @@ body {
 }
 
 .app-container a:hover {
+  background-color: #2ecc71;
+}
+
+/* Navbar links */
+.navbar {
+  margin-bottom: 20px;
+}
+
+.navbar .btn-link {
+  margin: 0 10px;
+  padding: 8px 15px;
+  border-radius: 6px;
+  text-decoration: none;
+  background-color: #27ae60;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.navbar .btn-link:hover {
   background-color: #2ecc71;
 }

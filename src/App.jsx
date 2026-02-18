@@ -1,56 +1,31 @@
-import React, { useState } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
-import DifficultySelector from './components/DifficultySelector.jsx';
-import Board from './components/Board.jsx';
-import WinnerScorecard from './components/WinnerScorecard.jsx';
-import './App.css';
+import React, { useContext } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Home from "./pages/Home";
+import Game from "./pages/Game";
+import Analytics from "./pages/Analytics";
+import "./App.css";
+import { AppContext } from "./context/AppContext";  // ✅ Import context
 
 function App() {
-  const [difficulty, setDifficulty] = useState('easy');
-  const [gameResult, setGameResult] = useState(null);
-  const [gamesPlayed, setGamesPlayed] = useState(0);
-  const [gamesWon, setGamesWon] = useState(0);
-  const [gamesLost, setGamesLost] = useState(0);
-  const [gamesDrawn, setGamesDrawn] = useState(0);
-
-  function handleGameEnd(result) {
-    setGameResult(result);
-    setGamesPlayed(prev => prev + 1);
-    if (result === 'win') setGamesWon(prev => prev + 1);
-    else if (result === 'loss') setGamesLost(prev => prev + 1);
-    else if (result === 'draw') setGamesDrawn(prev => prev + 1);
-  }
+  const { state } = useContext(AppContext); // ✅ Get theme from context
 
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <div className="app-container">
-            <h1>Welcome to Smart Tic Tac Toe Game</h1>
-            <DifficultySelector difficulty={difficulty} setDifficulty={setDifficulty} />
-            <Board difficulty={difficulty} onGameEnd={handleGameEnd} />
-            <div style={{ marginTop: '1rem' }}>
-              <Link to="/scorecard" className="btn-link">View Winner Scorecard</Link>
-            </div>
-          </div>
-        }
-      />
-      <Route
-        path="/scorecard"
-        element={
-          <div className="app-container">
-            <WinnerScorecard
-              result={gameResult}
-              stats={{ gamesPlayed, gamesWon, gamesLost, gamesDrawn }}
-            />
-            <div style={{ marginTop: '1rem' }}>
-              <Link to="/" className="btn-link blue">Back to Game</Link>
-            </div>
-          </div>
-        }
-      />
-    </Routes>
+    <Router>
+      {/* Apply theme class dynamically */}
+      <div className={`app-container ${state.theme}`}>
+        <nav className="navbar">
+          <Link to="/" className="btn-link">Home</Link>
+          <Link to="/game" className="btn-link">Game</Link>
+          <Link to="/analytics" className="btn-link">Analytics</Link>
+        </nav>
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/game" element={<Game />} />
+          <Route path="/analytics" element={<Analytics />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
