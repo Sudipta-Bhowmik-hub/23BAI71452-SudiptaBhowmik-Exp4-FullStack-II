@@ -1,3 +1,4 @@
+// src/pages/Game.jsx
 import { useState, useEffect, useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import Square from "../components/Square";
@@ -25,8 +26,10 @@ function machineMove(squares) {
 export default function Game() {
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [xIsNext, setXIsNext] = useState(true);
-  const [winner, setWinner] = useState(null);   // ✅ track winner
-  const { dispatch } = useContext(AppContext);
+  const [winner, setWinner] = useState(null);
+
+  // ✅ Access context (for difficulty + stats)
+  const { state, dispatch } = useContext(AppContext);
 
   function handleClick(i) {
     if (squares[i] || winner) return;
@@ -58,8 +61,21 @@ export default function Game() {
     }
   }, [squares, xIsNext, winner, dispatch]);
 
+  // ✅ Color coding logic
+  const difficultyColor =
+    state.difficulty === "easy"
+      ? "green"
+      : state.difficulty === "medium"
+      ? "orange"
+      : "red";
+
   return (
     <div className="board-container">
+      {/* ✅ Difficulty display at top with color coding */}
+      <h1 style={{ fontWeight: "bold", color: difficultyColor, marginBottom: "20px" }}>
+        Difficulty Level: {state.difficulty}
+      </h1>
+
       <div className="board">
         {squares.map((val, i) => (
           <Square key={i} value={val} onClick={() => handleClick(i)} />

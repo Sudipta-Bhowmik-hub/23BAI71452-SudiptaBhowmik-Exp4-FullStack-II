@@ -1,3 +1,4 @@
+// src/context/AppContext.jsx
 import React, { createContext, useReducer } from "react";
 
 export const AppContext = createContext();
@@ -7,6 +8,7 @@ const initialState = {
   gamesPlayed: 0,
   xWins: 0,
   oWins: 0,
+  difficulty: "easy" // ✅ default difficulty
 };
 
 function reducer(state, action) {
@@ -19,6 +21,8 @@ function reducer(state, action) {
       return { ...state, xWins: state.xWins + 1 };
     case "O_WIN":
       return { ...state, oWins: state.oWins + 1 };
+    case "SET_DIFFICULTY": // ✅ new action
+      return { ...state, difficulty: action.payload };
     default:
       return state;
   }
